@@ -4,7 +4,7 @@
 //
 // IMPORTS
 //
-te
+
 @import "reset";
 @import "variables";
 // Syntax highlighting @import is at the bottom of this file
@@ -156,10 +156,10 @@ img {
 
 .masthead {
   padding: 20px 0;
-  border-bottom: 2px solid $lightGray;
+  border-bottom: 1px solid $lightGray;
 
   @include mobile {
-    text-align: right;
+    text-align: center;
   }
 }
 

@@ -7,12 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Viktor Shaumann</title>
-
+    <!-- D3 -->
+    <script src="//d3js.org/d3.v3.min.js"></script>
     <!-- Bootstrap -->
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
-
     <link href="static/css/justified-nav.css" rel="stylesheet">
-
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -70,7 +69,7 @@
                         <li><a href="https://github.com/vshaumann/Collaborative-Filtering-Netflix" target="_blank">Collaborative Filtering - Netflix </a><i> - (2016)</i>
                             <span class="label label-default label-pill pull-xs-right">Python</span>
                         </li>
-                        <li><a href="https://github.com/vshaumann/Kaggle-Whats-Cooking-TensorFlow/blob/master/Whats-Cooking-Tensor-Flow.ipynb" target="_blank">Kaggle - What's Cooking?<a></a> <i> - (2015)</i>
+                        <li><a href="https://github.com/vshaumann/Kaggle-Whats-Cooking-TensorFlow/blob/master/Whats-Cooking-Tensor-Flow.ipynb" target="_blank">Kaggle - What's Cooking?</a> <i> - (2015)</i>
                             <span class="label label-default label-pill pull-xs-right">Python</span>
                             <span class="label label-default label-pill pull-xs-right">TensorFlow</span>
                         </li>
@@ -104,9 +103,65 @@
 
         </div>
     </div>
-    </div>
 
-    </div>
+    <script>
+        var myData = [100, 130, 180, 300, 360, 450, 470, 550, 360, 300, 180, 130, 80];
+        var height = 60;
+        var width = 106;
+        var animateDuration = 2000;
+        var animateDelay = 150;
+
+        var yScale = d3.scale.linear()
+            .domain([0, d3.max(myData)])
+            .range([0, height - 10]);
+
+        var xScale = d3.scale.ordinal()
+            .domain(d3.range(0, myData.length))
+            .rangeBands([0, width]);
+
+        var svgContainer = d3.select('body')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height);
+
+        var bars = svgContainer.selectAll('rect')
+            .data(myData)
+            .enter()
+            .append('rect')
+            .style('fill', "#137CBD")
+            .attr('width', xScale.rangeBand())
+            .attr('height', 0) // set in transition
+            .style('stroke', 'black')
+            .style('stroke-width', '1px')
+            .attr('x', function(d, i) {
+                return xScale(i);
+            })
+            .attr('y', height);
+
+        var transitionChart = bars.transition()
+            .attr('height', function(d) {
+                return yScale(d);
+            })
+            .attr('y', function(d) {
+                return height - yScale(d);
+            })
+            .duration(animateDuration)
+            .delay(function(d, i) { // gradual delay
+                return i * animateDelay;
+            })
+            .ease('elastic');
+    </script>
+
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-79834734-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

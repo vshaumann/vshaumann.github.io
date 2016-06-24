@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="author" content="Viktor Shaumann, data science, machine learning">
+    <script src="//d3js.org/d3.v3.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <meta charset="UTF-8">
+    <title>Viktor Shaumann</title>
+</head>
+
+<style>
+    svg {
+        display: block;
+        margin: auto;
+    }
+
+</style>
+
+<body>
+
+<b> About </b>
+
+<p>I am a graduate student at University of San Francisco working towards Masters degree in Analytics.<br>
+    I am interested in using the full stack of Data Science skills to work on business problems involving human data.<br>
+    My interests include behavioral economics, social network analysis and mass behavior.</p>
+    <p>Prior to getting into Data Science, I spent two years in finance and consulting.
+    This time gave me a strong analytical eye, <br> solid business foundations and taught me how to work together with different people.<br>
+    My other work experience includes business development and sales.</p>
+
+<p>
+    <b>Project Portfolio</b>
+    <ul>
+    <li><a href="http://bl.ocks.org/vshaumann" target="_blank">D3 Visualizations</a><i> - (2016) - [D3.js, Python, Jupyter Notebook]</i></li>
+    <li><a href="https://github.com/vshaumann/PySpark-HITS/blob/master/pyspark-hiits-algorithm.ipynb" target="_blank">HITS Algorithm with PySpark </a><i> - (2016) - [PySpark, Python]</i></li>
+    <li>Amazon Review Helpfulness Prediction <i> - (2016) - [PySpark, Python]</i></li>
+    <li><a href="https://github.com/vshaumann/Collaborative-Filtering-Netflix" target="_blank">Collaborative Filtering - Netflix </a><i> - (2016) - [Python]</i></li>
+    <li><a href="https://github.com/vshaumann/Kaggle-Whats-Cooking-TensorFlow/blob/master/Whats-Cooking-Tensor-Flow.ipynb" target="_blank">Kaggle - What's Cooking?<a></a> <i> - (2015) - [Python, TensorFlow]</i></li>
+    <li>Restful Web Service <i> - (2015) - [Python]</i></li>
+    <li>Case Study - Times Series <i> - (2015) - [R]</i></li>
+    <li>Case Study - Nils Baker <i> - (2015) - [R]</i></li>
+    <li>Case Study - Milk & Money <i> - (2015) - [R]</i></li>
+    <li>YouTube Trend Analysis <i> - (2015) - [Python, Pandas, SQL, Plotly]</i></li>
+    <li>Naïve Bayes Sentiment Analysis <i> - (2015) - [Python]</i></li>
+    <li>Los Angeles Crime Analysis <i> - (2014) - [Python, Pandas]</i></li>
+    </ul>
+</p>
+
+<p>
+    <b>Contact</b>
+    <ul>
+    <li><a href="https://raw.githubusercontent.com/vshaumann/vshaumann.github.io/master/shaumann_viktor_resume.pdf" target="_blank">Resume</a></li>
+    <li><a href="https://www.linkedin.com/in/viktorshaumann" target="_blank">LinkedIn</a></li>
+    <li><a href="mailto:viktor.shaumann@gmail.com">Email</a></li>
+    </ul>
+</p>
+
+<script>
+
+        var myData = [100, 130, 180, 300, 360, 450, 470, 550, 360, 300, 180, 130, 80];
+        var height = 60;
+        var width = 106;
+        var animateDuration = 2000;
+        var animateDelay = 150;
+
+        var yScale = d3.scale.linear()
+                .domain([0, d3.max(myData)])
+                .range([0, height - 10]);
+
+        var xScale = d3.scale.ordinal()
+                .domain(d3.range(0, myData.length))
+                .rangeBands([0, width]);
+
+        var svgContainer = d3.select('body')
+                .append('svg')
+                .attr('width', width)
+                .attr('height', height);
+
+        var bars = svgContainer.selectAll('rect')
+                .data(myData)
+                .enter()
+                .append('rect')
+                .style('fill', "#137CBD")
+                .attr('width', xScale.rangeBand())
+                .attr('height', 0) // set in transition
+                .style('stroke', 'black')
+                .style('stroke-width', '1px')
+                .attr('x', function(d, i) {
+                    return xScale(i);
+                })
+                .attr('y', height);
+
+        var transitionChart = bars.transition()
+                .attr('height', function(d) {
+                    return yScale(d);
+                })
+                .attr('y', function(d) {
+                    return height - yScale(d);
+                })
+                .duration(animateDuration)
+                .delay(function(d, i) { // gradual delay
+                    return i * animateDelay;
+                })
+                .ease('elastic');
+
+        newData = d3.range(4).map(function() {
+        return d3.range(3).map(Math.random);
+    });
+
+</script>
+
+
+</body>
+
+</html>
